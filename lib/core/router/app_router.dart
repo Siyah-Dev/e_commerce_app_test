@@ -6,6 +6,7 @@ import 'package:e_commerce_test/features/auth/presentation/pages/login_page.dart
 import 'package:e_commerce_test/features/cart/presentation/pages/cart_page.dart';
 import 'package:e_commerce_test/features/favourite/presentation/pages/favorite_page.dart';
 import 'package:e_commerce_test/features/home/presentation/pages/home_page.dart';
+import 'package:e_commerce_test/features/printer/presentation/printer_page.dart';
 import 'package:e_commerce_test/features/profile/presentation/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,6 +60,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
 
+
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return MainShell(
@@ -66,6 +68,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           );
         },
         branches: [
+
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -115,6 +118,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
+
+      GoRoute(
+        name: RouteNames.printer,
+        path: '/printer',
+        builder: (context, state) {
+          return const PrinterPage();
+        },
+      ),
     ],
   );
 });
@@ -136,7 +147,8 @@ class MainShell extends StatelessWidget {
         onItemSelected: (index) {
           navigationShell.goBranch(
             index,
-            initialLocation: index == navigationShell.currentIndex,
+            initialLocation:
+                index == navigationShell.currentIndex,
           );
         },
       ),

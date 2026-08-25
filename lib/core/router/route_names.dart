@@ -5,4 +5,5 @@ abstract final class RouteNames {
   static const favorites = 'favorites';
   static const cart = 'cart';
   static const profile = 'profile';
+  static const printer = 'printer';
 }
