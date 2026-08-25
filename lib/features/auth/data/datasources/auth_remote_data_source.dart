@@ -1,22 +1,27 @@
 import 'package:dio/dio.dart';
+import 'package:e_commerce_test/features/auth/data/models/login_response_model.dart';
+
+import '../../../../core/constants/api_constants.dart';
 
 class AuthRemoteDataSource {
-  final Dio dio;
+  AuthRemoteDataSource(this._dio);
 
-  AuthRemoteDataSource(this.dio);
+  final Dio _dio;
 
-  Future<Map<String, dynamic>> login({
-    required String username,
+  Future<LoginResponseModel> login({
+    required String email,
     required String password,
   }) async {
-    final response = await dio.post(
-      '/auth/login',
+    final response = await _dio.post(
+      ApiConstants.login,
       data: {
-        'username': username,
+        'email': email,
         'password': password,
       },
     );
 
-    return response.data;
+    return LoginResponseModel.fromJson(
+      response.data as Map<String, dynamic>,
+    );
   }
 }
