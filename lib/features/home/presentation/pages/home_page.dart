@@ -1,3 +1,4 @@
+import 'package:e_commerce_test/features/cart/presentation/controllers/cart_controller.dart';
 import 'package:e_commerce_test/features/home/presentation/controllers/home_state.dart';
 import 'package:e_commerce_test/features/home/presentation/providers/home_providers.dart';
 import 'package:e_commerce_test/features/home/presentation/widgets/product_action_handler.dart';
@@ -37,7 +38,7 @@ class HomePage extends ConsumerWidget {
   }
 }
 
-class _HomeBody extends StatelessWidget {
+class _HomeBody extends ConsumerWidget {
   const _HomeBody({
     required this.state,
     required this.onSearch,
@@ -51,7 +52,7 @@ class _HomeBody extends StatelessWidget {
   final VoidCallback onRetry;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     if (state.isLoading) {
       return const Center(
         child: CircularProgressIndicator(
@@ -124,6 +125,14 @@ class _HomeBody extends StatelessWidget {
           ProductGrid(
             products: state.products,
             onAdd: (product) {
+              ref
+        .read(cartControllerProvider.notifier)
+        .addToCart(
+          productId: product.id,
+          title: product.name,
+          // price: product.code,
+          // image: product.image,
+        );
               ProductActionHandler.showMessage(
                 context,
                 '${product.name} added to cart',
