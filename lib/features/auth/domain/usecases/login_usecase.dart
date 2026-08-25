@@ -8,11 +8,11 @@ class LoginUseCase {
   final AuthRepository _repository;
 
   Future<LoginResponseEntity> call({
-    required String email,
+    required String userName,
     required String password,
   }) {
     return _repository.login(
-      email: email,
+      userName: userName,
       password: password,
     );
   }

@@ -10,11 +10,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<LoginResponseEntity> login({
-    required String email,
+    required String userName,
     required String password,
   }) {
     return _remoteDataSource.login(
-      email: email,
+      userName: userName,
       password: password,
     );
   }

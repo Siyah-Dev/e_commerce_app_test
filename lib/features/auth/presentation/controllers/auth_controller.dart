@@ -38,7 +38,7 @@ class AuthController extends Notifier<AuthState> {
   }
 
   Future<bool> login({
-    required String email,
+    required String userName,
     required String password,
   }) async {
     state = state.copyWith(
@@ -51,7 +51,7 @@ class AuthController extends Notifier<AuthState> {
           ref.read(loginUseCaseProvider);
 
       final response = await loginUseCase(
-        email: email,
+        userName: userName,
         password: password,
       );
 

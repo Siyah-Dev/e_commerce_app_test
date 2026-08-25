@@ -6,13 +6,13 @@ class Validators {
       return 'Email is required';
     }
 
-    final emailRegex = RegExp(
-      r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-    );
+    // final emailRegex = RegExp(
+    //   r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
+    // );
 
-    if (!emailRegex.hasMatch(value.trim())) {
-      return 'Enter a valid email address';
-    }
+    // if (!emailRegex.hasMatch(value.trim())) {
+    //   return 'Enter a valid email address';
+    // }
 
     return null;
   }
@@ -22,9 +22,9 @@ class Validators {
       return 'Password is required';
     }
 
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters';
-    }
+    // if (value.length < 6) {
+    //   return 'Password must be at least 6 characters';
+    // }
 
     return null;
   }

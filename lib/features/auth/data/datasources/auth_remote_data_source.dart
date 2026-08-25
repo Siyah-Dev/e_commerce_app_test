@@ -9,13 +9,13 @@ class AuthRemoteDataSource {
   final Dio _dio;
 
   Future<LoginResponseModel> login({
-    required String email,
+    required String userName,
     required String password,
   }) async {
     final response = await _dio.post(
       ApiConstants.login,
       data: {
-        'email': email,
+        'username': userName,
         'password': password,
       },
     );
