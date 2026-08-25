@@ -20,14 +20,14 @@ class HomeState {
     this.searchQuery = '',
     this.sort = ProductSort.nameAscending,
     this.errorMessage,
+    this.isLoadingMore = false,
+    this.hasMore = true,
   });
 
   final HomeStatus status;
 
-  /// Original products received from API.
   final List<Product> allProducts;
 
-  /// Filtered/sorted products displayed by UI.
   final List<Product> products;
 
   final String searchQuery;
@@ -35,6 +35,12 @@ class HomeState {
   final ProductSort sort;
 
   final String? errorMessage;
+
+  // Indicates whether the next page is being loaded.
+  final bool isLoadingMore;
+
+  // Indicates whether more products are available.
+  final bool hasMore;
 
   bool get isLoading => status == HomeStatus.loading;
 
@@ -49,6 +55,8 @@ class HomeState {
     String? searchQuery,
     ProductSort? sort,
     String? errorMessage,
+    bool? isLoadingMore,
+    bool? hasMore,
     bool clearError = false,
   }) {
     return HomeState(
@@ -60,6 +68,8 @@ class HomeState {
       errorMessage: clearError
           ? null
           : errorMessage ?? this.errorMessage,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      hasMore: hasMore ?? this.hasMore,
     );
   }
 }

@@ -17,26 +17,31 @@ class ProductGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.only(bottom: 24),
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: products.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 0.72,
+    return SliverPadding(
+      padding: const EdgeInsets.fromLTRB(
+        16,
+        0,
+        16,
+        24,
       ),
-      itemBuilder: (context, index) {
-        final product = products[index];
+      sliver: SliverGrid.builder(
+        itemCount: products.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 0.72,
+        ),
+        itemBuilder: (context, index) {
+          final product = products[index];
 
-        return ProductCard(
-          product: product,
-          onAdd: () => onAdd(product),
-          onFavorite: () => onFavorite(product),
-        );
-      },
+          return ProductCard(
+            product: product,
+            onAdd: () => onAdd(product),
+            onFavorite: () => onFavorite(product),
+          );
+        },
+      ),
     );
   }
 }

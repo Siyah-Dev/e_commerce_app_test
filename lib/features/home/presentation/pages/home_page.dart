@@ -53,53 +53,89 @@ class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.isLoading) {
-      return const Center(child: CircularProgressIndicator(color: Color(0xFF006B52)));
+      return const Center(
+        child: CircularProgressIndicator(
+          color: Color(0xFF006B52),
+        ),
+      );
     }
 
     if (state.hasError) {
-      return ProductErrorState(onRetry: onRetry);
+      return ProductErrorState(
+        onRetry: onRetry,
+      );
     }
 
     return CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       slivers: [
         SliverPadding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-          sliver: SliverToBoxAdapter(child: ProductSearchBar(onChanged: onSearch)),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: const EdgeInsets.fromLTRB(
+            16,
+            12,
+            16,
+            0,
+          ),
           sliver: SliverToBoxAdapter(
-            child: ProductFilterBar(selectedSort: state.sort, onSortChanged: onSortChanged),
+            child: ProductSearchBar(
+              onChanged: onSearch,
+            ),
           ),
         ),
+
         SliverPadding(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
-          sliver: SliverToBoxAdapter(child: ProductSectionHeader(count: state.products.length)),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.fromLTRB(
+            16,
+            16,
+            16,
+            0,
+          ),
           sliver: SliverToBoxAdapter(
-            child: state.products.isEmpty
-                ? ProductEmptyState(
-                    message: state.searchQuery.isEmpty
-                        ? 'No products available'
-                        : 'No products match your search',
-                  )
-                : ProductGrid(
-                    products: state.products,
-                    onAdd: (product) {
-                      ProductActionHandler.showMessage(context, '${product.name} added to cart');
-                    },
-                    onFavorite: (product) {
-                      ProductActionHandler.showMessage(
-                        context,
-                        '${product.name} added to favorites',
-                      );
-                    },
-                  ),
+            child: ProductFilterBar(
+              selectedSort: state.sort,
+              onSortChanged: onSortChanged,
+            ),
           ),
         ),
+
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(
+            16,
+            24,
+            16,
+            12,
+          ),
+          sliver: SliverToBoxAdapter(
+            child: ProductSectionHeader(
+              count: state.products.length,
+            ),
+          ),
+        ),
+
+        if (state.products.isEmpty)
+          SliverToBoxAdapter(
+            child: ProductEmptyState(
+              message: state.searchQuery.isEmpty
+                  ? 'No products available'
+                  : 'No products match your search',
+            ),
+          )
+        else
+          ProductGrid(
+            products: state.products,
+            onAdd: (product) {
+              ProductActionHandler.showMessage(
+                context,
+                '${product.name} added to cart',
+              );
+            },
+            onFavorite: (product) {
+              ProductActionHandler.showMessage(
+                context,
+                '${product.name} added to favorites',
+              );
+            },
+          ),
       ],
     );
   }
